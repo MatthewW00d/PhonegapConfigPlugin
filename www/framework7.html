@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width" />
+    <!-- This is a wide open CSP declaration. To lock this down for production, see below. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>My App</title>
+    <!-- Path to Framework7 Library CSS-->
+    <link rel="stylesheet" href="framework7/css/framework7.ios.min.css">
+    <link rel="stylesheet" href="framework7/css/framework7.ios.colors.min.css">
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/framework7/1.4.2/css/framework7.material.colors.min.css">
+    
+
+    <!-- Path to your custom app styles-->
+    <link rel="stylesheet" href="css/index7.css">
+</head>
+
+<body>
+    <!-- Status bar overlay for fullscreen mode-->
+    <div class="statusbar-overlay"></div>
+
+    <!-- Panels overlay-->
+    <div class="panel-overlay"></div>
+
+    <!-- Left panel with reveal effect-->
+    <div class="panel panel-left panel-reveal">
+        <div class="content-block">
+            <p>Left panel content goes here</p>
+            <div><a href="#" class="side-bar panel-close">Close</a></div>
+            <div><a href="#about" class="side-bar item-link panel-close">About</a></div>
+            <div><a href="#project" class="side-bar item-link panel-close">Projects</a></div>
+            <div><a href="#form" class="side-bar item-link panel-close"> Form</a></div>
+            <div><a href="index.html" class="side-bar link external panel-close color-red">
+  <i class="icon f7-icons"></i>
+  <span>back</span>
+              </a></div>
+
+        </div>
+    </div>
+
+    <!-- Right panel with cover effect-->
+    <div class="panel panel-right panel-cover">
+        <div class="content-block">
+            <p>Right panel content goes here</p>
+        </div>
+    </div>
+
+    <!-- Views-->
+    <div class="views">
+        <!-- Your main view, should have "view-main" class-->
+        <div class="view view-main">
+
+            <!-- Top Navbar-->
+            <div class="navbar">
+                <!-- Navbar inner for Index page-->
+                <div data-page="index" class="navbar-inner">
+                    <!-- We have home navbar without left link-->
+                    <div class="center sliding">Sidebar Structure</div>
+
+                    <!-- Right link contains only icon - additional "icon-only" class to open panel-->
+                    <div class="right"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a></div>
+                </div>
+
+                <!-- Navbar inner for About page-->
+                <div data-page="about" class="navbar-inner cached">
+                    <div class="left"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+                    <div class="center">About Us</div>
+                    <div class="right"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a></div>
+                </div>
+
+                <!-- Navbar inner for Projects page-->
+                <div data-page="project" class="navbar-inner cached">
+                    <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+                    <div class="center sliding">Projects</div>
+                    <div class="right"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a></div>
+                </div>
+
+                <!-- Navbar inner for Form page-->
+                <div data-page="form" class="navbar-inner cached">
+                    <div class="left sliding"><a href="#" class="back link"> <i class="icon icon-back"></i><span>Back</span></a></div>
+                    <div class="center sliding">Form</div>
+                    <div class="right"><a href="#" class="link icon-only open-panel"> <i class="icon icon-bars"></i></a></div>
+                </div>
+            </div>
+            <!-- END Top Navbars-->
+
+
+            <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+            <div class="pages navbar-through toolbar-through">
+                <!-- Index Page-->
+                <div data-page="index" class="page">
+                    <!-- Scrollable page content-->
+                    <div class="page-content">
+                        <div class="content-block-title">Welcome</div>
+                        <div class="content-block">
+                            <div class="content-block-inner">
+                                <p>Duis sed erat ac eros ultrices pharetra id ut tellus. Praesent rhoncus enim ornare ipsum aliquet ultricies. Pellentesque sodales erat quis elementum sagittis.</p>
+                                <p id="change">This text will be changed by JavaScript</p>
+                            </div>
+                        </div>
+                        <div class="content-block-title">Inline navigation</div>
+                        <div class="list-block">
+                            <ul>
+                                <li>
+                                    <a href="#about" class="item-link">
+                                        <div class="item-content">
+                                            <div class="item-inner">
+                                                <div class="item-title">About</div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block-title">Side panels</div>
+                        <div class="content-block">
+                            <a href="#" data-panel="left" class="button open-panel">Open Left Panel</a>
+                            <br>
+                            <a href="#" data-panel="right" class="button open-panel">Open right Panel</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- About Page-->
+                <div data-page="about" class="page cached">
+                    <div class="page-content">
+                        <div class="content-block">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at. Curabitur auctor cursus imperdiet. Nam molestie nisi nec est lacinia volutpat in a purus. Maecenas consectetur condimentum viverra. Donec ultricies nec sem vel condimentum. Phasellus eu tincidunt enim, sit amet convallis orci. Vestibulum quis fringilla dolor.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Services Page-->
+                <div data-page="project" class="page cached">
+                    <div class="page-content">
+                        <div class="content-block">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at. Curabitur auctor cursus imperdiet. Nam molestie nisi nec est lacinia volutpat in a purus. Maecenas consectetur condimentum viverra. Donec ultricies nec sem vel condimentum. Phasellus eu tincidunt enim, sit amet convallis orci. Vestibulum quis fringilla dolor. </p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Form Page-->
+                <div data-page="form" class="page cached">
+                    <div class="page-content">
+                        <div class="content-block">
+                            <p>Form Page</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel commodo massa, eu adipiscing mi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus ultricies dictum neque, non varius tortor fermentum at.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Toolbar-->
+            <!--
+        <div class="toolbar">
+          <div class="toolbar-inner"><a href="#" class="link">Link 1</a><a href="#" class="link">Link 2</a></div>
+        </div>
+        -->
+        </div>
+    </div>
+    <script type="text/javascript" src="cordova.js"></script>
+    <!-- Path to Framework7 Library JS-->
+    <script type="text/javascript" src="framework7/js/framework7.min.js"></script>
+    <!-- Path to your app js-->
+    <script type="text/javascript" src="js/index7.js"></script>
+</body>
+
+</html>

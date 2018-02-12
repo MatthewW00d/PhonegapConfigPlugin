@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,
+width=device-width, height=device-height, target-densitydpi=device-dpi shrink-to-fit=no" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>PhoneGap Plugin - Examples</title>
+</head>
+
+<body>
+
+    <h1 class="display-4 text-center">PhoneGap</h1>
+    <div class="card">
+        <div class="card-header">
+            Plugins
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">navigator.geolocation.getCurrentPosition</h5>
+            <p id="gpsResult" class="card-text">This plugin provides information about the device's location, such as latitude and longitude.</p>
+            <a id="gpsBtn" href="#" class="btn btn-primary btn-lg btn-block">Get location</a>
+        </div>
+        <div class="card-body text-white bg-info">
+            <h5 class="card-title">Vibratation</h5>
+            <p id="vibrateResult" class="card-text">This plugin provides a way to vibrate the device.</p>
+            <a id="vibrateBtn" href="#" class="btn btn-warning btn-lg btn-block">Vibrate Device</a>
+        </div>
+        <div class="card-body">
+            <img id="preview" class="card-img-top" src="img/logo.png" alt="Card image cap">
+            <h5 class="card-title">Camera</h5>
+            <p id="cameraResult" class="card-text">This plugin defines a global navigator.camera object, which provides an API for taking pictures and for choosing images from the system's image library.</p>
+            <a id="cameraBtn" href="#" class="btn btn-primary btn-lg btn-block">Take photo</a>
+        </div>
+        <div class="card-body text-white bg-info">
+            <h5 class="card-title">Battery</h5>
+            <p id="batteryResult" class="card-text">Battery (and charge) status will display on level change.</p>
+            <a id="batteryBtn" href="#" class="btn btn-warning btn-lg btn-block">Get Battery</a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Local Storage</h5>
+            <p id="localStorageResult" class="card-text">Set/get values to/from local storage.</p>
+
+                <div class="form-group">
+
+                    <input type="text" class="form-control" id="inputTextbox1"  placeholder="textbox1">
+
+                    <input type="text" class="form-control" id="inputTextbox2" placeholder="textbox2">
+                </div>
+                <button type="submit" class="btn btn-primary" id="localStorageSubmit">Submit</button>
+                <button type="submit" class="btn btn-success disabled" id="localStorageRetrieve">Retrieve</button>
+                <button type="submit" class="btn btn-dark disabled" id="localStorageClear">Clear</button>
+
+        </div>
+                <div class="card-body text-white bg-info">
+            <h5 class="card-title">Device Orientation</h5>
+            <p id="heading" class="card-text">This plugin provides access to the device's compass.</p>
+            <a id="getCompassBtn" href="#" class="btn btn-warning ">Get Heading</a>
+            <a id="clearCompassBtn" href="#" class="btn btn-dark ">Clear Heading</a>
+        </div>
+        
+
+
+    </div>
+
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" href="framework7.html">Framework 7</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="acceljQueryMobile.html">jQuery Mobile</a>
+
+        </li>
+
+    </ul>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+        document.getElementById("gpsBtn").addEventListener("click", geolocation);
+        document.getElementById("vibrateBtn").addEventListener("click", vibration);
+        document.getElementById("gpsBtn").addEventListener("click", batteryStatus);
+        document.getElementById("cameraBtn").addEventListener("click", takePicture);
+        document.getElementById("localStorageSubmit").addEventListener("click", localStoreageSet);
+        document.getElementById("localStorageRetrieve").addEventListener("click", localStoreageGet);
+        document.getElementById("localStorageClear").addEventListener("click", localStoreageClear);
+        document.getElementById("getCompassBtn").addEventListener("click", getCompass);
+        document.getElementById("clearCompassBtn").addEventListener("click", clearCompass);
+        
+    </script>
+</body>
+
+</html>

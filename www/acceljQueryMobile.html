@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='utf-8'>
+    <meta content='width=device-width, minimum-scale=1, maximum-scale=1' name='viewport'>
+    <title> Accelerometer value chart</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+
+    <link href='css/accelerometer.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div data-role='page' id='root'>
+        <div data-role='header'>
+            <a class='ui-btn-left' data-role='button' data-transition='slide' href='index.html' rel="external">back</a>
+            <h1> Accelerometer value chart</h1>
+            <a class='ui-btn-right' data-role='button' data-transition='slide' href='#about'>About</a>
+            
+        </div>
+        <div data-role='content'>
+            <div class='row'>
+                <h2>X</h2>
+                <canvas id='x-canvas' width='80' height='40'></canvas>
+                <ul id='x' class='history'>
+                    <li>No Data Yet</li>
+                </ul>
+            </div>
+            <div class='row'>
+                <h2>Y</h2>
+                <canvas id='y-canvas' width='80' height='40'></canvas>
+                <ul id='y' class='history'>
+                    <li>No Data Yet</li>
+                </ul>
+            </div>
+            <div class='row'>
+                <h2>Z</h2>
+                <canvas id='z-canvas' width='80' height='40'></canvas>
+                <ul id='z' class='history'>
+                    <li>No Data Yet</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div data-role='page' id='about'>
+        <div data-role='header'>
+            <h2>About</h2>
+            <a data-icon='arrow-l' data-rel='back'>Back</a>
+        </div>
+        <div data-role='content'>
+            <h1>
+                Accelerometer value chart
+            </h1>
+
+
+            <p>We will put a canvas in each axis.</p>
+
+            <div class="highlighter-coderay">
+                <div class="CodeRay">
+                    <div class="code">
+                        <pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#070;font-weight:bold">&lt;div</span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">row</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>  <span style="color:#070;font-weight:bold">&lt;h2&gt;</span>X<span style="color:#070;font-weight:bold">&lt;/h2&gt;</span>
+<span class="line-numbers"><a href="#n3" name="n3">3</a></span>  <span style="color:#070;font-weight:bold">&lt;canvas</span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">x-canvas</span><span style="color:#710">'</span></span> <span style="color:#b48">width</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">80</span><span style="color:#710">'</span></span> <span style="color:#b48">height</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">40</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span><span style="color:#070;font-weight:bold">&lt;/canvas&gt;</span>
+<span class="line-numbers"><a href="#n4" name="n4">4</a></span>  <span style="color:#070;font-weight:bold">&lt;ul</span> <span style="color:#b48">id</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">x</span><span style="color:#710">'</span></span> <span style="color:#b48">class</span>=<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">history</span><span style="color:#710">'</span></span><span style="color:#070;font-weight:bold">&gt;</span>
+<span class="line-numbers"><a href="#n5" name="n5">5</a></span>    <span style="color:#070;font-weight:bold">&lt;li&gt;</span>No Data Yet<span style="color:#070;font-weight:bold">&lt;/li&gt;</span>
+<span class="line-numbers"><a href="#n6" name="n6">6</a></span>  <span style="color:#070;font-weight:bold">&lt;/ul&gt;</span>
+<span class="line-numbers"><a href="#n7" name="n7">7</a></span><span style="color:#070;font-weight:bold">&lt;/div&gt;</span>
+</pre>
+                    </div>
+                </div>
+            </div>
+
+            <p>We will use a graph to show the historical values of the sensor.</p>
+
+            <div class="highlighter-coderay">
+                <div class="CodeRay">
+                    <div class="code">
+                        <pre><span class="line-numbers"> <a href="#n1" name="n1">1</a></span><span style="color:#777">// Graph</span>
+<span class="line-numbers"> <a href="#n2" name="n2">2</a></span>;(<span style="color:#080;font-weight:bold">function</span>(){
+<span class="line-numbers"> <a href="#n3" name="n3">3</a></span>  <span style="color:#080;font-weight:bold">var</span> app = <span style="color:#950">this</span>.app || (<span style="color:#950">this</span>.app={});
+<span class="line-numbers"> <a href="#n4" name="n4">4</a></span>
+<span class="line-numbers"> <a href="#n5" name="n5">5</a></span>  <span style="color:#777">// A bar chart for - Max Value to + Max Value.</span>
+<span class="line-numbers"> <a href="#n6" name="n6">6</a></span>  app.Graph = (<span style="color:#080;font-weight:bold">function</span>(){
+<span class="line-numbers"> <a href="#n7" name="n7">7</a></span>    <span style="color:#080;font-weight:bold">function</span> <span style="color:#06B;font-weight:bold">Graph</span>(canvasId, maxValue){
+<span class="line-numbers"> <a href="#n8" name="n8">8</a></span>      <span style="color:#950">this</span>.canvas = document.getElementById(canvasId);
+<span class="line-numbers"> <a href="#n9" name="n9">9</a></span>      <span style="color:#080;font-weight:bold">if</span> (<span style="color:#950">this</span>.canvas) {
+<span class="line-numbers"><strong><a href="#n10" name="n10">10</a></strong></span>        <span style="color:#950">this</span>.context = <span style="color:#950">this</span>.canvas.getContext(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">2d</span><span style="color:#710">'</span></span>);
+<span class="line-numbers"><a href="#n11" name="n11">11</a></span>      }
+<span class="line-numbers"><a href="#n12" name="n12">12</a></span>
+<span class="line-numbers"><a href="#n13" name="n13">13</a></span>      <span style="color:#777">// set the Y unit scale.</span>
+<span class="line-numbers"><a href="#n14" name="n14">14</a></span>      <span style="color:#950">this</span>.unit = <span style="color:#950">this</span>.canvas.height / <span style="color:#00D">2</span> / maxValue; <span style="color:#777">// divide by 2 because half for + and half for -.</span>
+<span class="line-numbers"><a href="#n15" name="n15">15</a></span>    }
+<span class="line-numbers"><a href="#n16" name="n16">16</a></span>    Graph.prototype.<span style="color:#06B;font-weight:bold">drawBar</span> = <span style="color:#080;font-weight:bold">function</span>(x, value) {
+<span class="line-numbers"><a href="#n17" name="n17">17</a></span>      <span style="color:#080;font-weight:bold">var</span> c = <span style="color:#950">this</span>.context;
+<span class="line-numbers"><a href="#n18" name="n18">18</a></span>      c.beginPath();
+<span class="line-numbers"><a href="#n19" name="n19">19</a></span>      c.moveTo(x, <span style="color:#950">this</span>.canvas.height/<span style="color:#00D">2</span>); <span style="color:#777">// middle</span>
+<span class="line-numbers"><strong><a href="#n20" name="n20">20</a></strong></span>      c.lineTo(x, <span style="color:#950">this</span>.canvas.height/<span style="color:#00D">2</span> - value * <span style="color:#950">this</span>.unit);
+<span class="line-numbers"><a href="#n21" name="n21">21</a></span>      c.lineWidth = <span style="color:#00D">3</span>;
+<span class="line-numbers"><a href="#n22" name="n22">22</a></span>      c.strokeStyle = <span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">&quot;</span><span style="color:#D20">#222</span><span style="color:#710">&quot;</span></span>;
+<span class="line-numbers"><a href="#n23" name="n23">23</a></span>      c.stroke();
+<span class="line-numbers"><a href="#n24" name="n24">24</a></span>      c.closePath();
+<span class="line-numbers"><a href="#n25" name="n25">25</a></span>    };
+<span class="line-numbers"><a href="#n26" name="n26">26</a></span>    Graph.prototype.<span style="color:#06B;font-weight:bold">render</span> = <span style="color:#080;font-weight:bold">function</span>(dataArray) {
+<span class="line-numbers"><a href="#n27" name="n27">27</a></span>      <span style="color:#950">this</span>.canvas.width = <span style="color:#950">this</span>.canvas.width;
+<span class="line-numbers"><a href="#n28" name="n28">28</a></span>      <span style="color:#080;font-weight:bold">for</span> (<span style="color:#080;font-weight:bold">var</span> i=<span style="color:#00D">0</span>, len=dataArray.length; i&lt;len; i++) {
+<span class="line-numbers"><a href="#n29" name="n29">29</a></span>        <span style="color:#950">this</span>.drawBar(i*<span style="color:#00D">5</span>, dataArray[i]);
+<span class="line-numbers"><strong><a href="#n30" name="n30">30</a></strong></span>      }
+<span class="line-numbers"><a href="#n31" name="n31">31</a></span>    }
+<span class="line-numbers"><a href="#n32" name="n32">32</a></span>    <span style="color:#080;font-weight:bold">return</span> Graph;
+<span class="line-numbers"><a href="#n33" name="n33">33</a></span>  })();
+<span class="line-numbers"><a href="#n34" name="n34">34</a></span>}).call(<span style="color:#950">this</span>);
+</pre>
+                    </div>
+                </div>
+            </div>
+
+            <p>At last, we use the Graph to render the historical data.</p>
+
+            <div class="highlighter-coderay">
+                <div class="CodeRay">
+                    <div class="code">
+                        <pre><span class="line-numbers"><a href="#n1" name="n1">1</a></span><span style="color:#080;font-weight:bold">var</span> graphX = <span style="color:#080;font-weight:bold">new</span> app.Graph(<span style="background-color:hsla(0,100%,50%,0.05)"><span style="color:#710">'</span><span style="color:#D20">x-canvas</span><span style="color:#710">'</span></span>, <span style="color:#60E">2.5</span>);
+<span class="line-numbers"><a href="#n2" name="n2">2</a></span>graphX.render(app.xValues);
+</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <script src='js/Accelapp.js'></script>
+</body>
+
+</html>
